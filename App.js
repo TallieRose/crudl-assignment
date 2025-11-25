@@ -1,20 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
-export default function App() {
+import ModulesStack from './src/navigator/ModulesStack';
+import UsersStack from './src/navigator/UsersStack';
+
+const Drawer = createDrawerNavigator();
+
+export const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    <NavigationContainer>
+      <Drawer.Navigator
+        initialRouteName="Modules"
+        screenOptions={{
+          headerStyle: { backgroundColor: 'black' },
+          headerTintColor: 'white',
+        }}
+      >
+        <Drawer.Screen
+          name="Modules"
+          component={ModulesStack}
+          options={{ title: 'Modules CRUDL' }}
+        />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+        <Drawer.Screen
+          name="Users"
+          component={UsersStack}
+          options={{ title: 'Users CRUDL' }}
+        />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;
