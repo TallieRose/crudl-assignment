@@ -19,7 +19,6 @@ const ModuleListScreen = ({ navigation }) => {
   const [loggedinUser] = useStore(loggedinUserKey, null);
   const [favourites, saveFavourites] = useStore(favouritesKey, []);  
 
-
   const augmentModulesWithFavourites = () => {
     const modifyModule = (module) => ({
       ...module,
@@ -34,8 +33,8 @@ const ModuleListScreen = ({ navigation }) => {
   }, [isLoading]);
 
   const handleFavourite = (module) => {  
-  
     const isFavourite = !module.ModuleFavourite;
+
     const updateModule = (item) =>
       item.ModuleID == module.ModuleID ? { ...item, ModuleFavourite: isFavourite } : item;
 
@@ -49,16 +48,25 @@ const ModuleListScreen = ({ navigation }) => {
     saveFavourites(updatedFavouritesList); 
   };
 
-  const onAdd = async (module) => {
-
+  const onAdd = (newModule) => {
+    setModules([...modules, newModule]);
+    navigation.goBack();
   };
 
-  const onModify = async (module) => {
-
+  const onModify = (updatedModule) => {
+    const updatedList = modules.map((item) =>
+      item.ModuleID == updatedModule.ModuleID ? updatedModule : item
+    );
+    setModules(updatedList);
+    navigation.goBack();
   };
 
-  const onDelete = async (module) => {
-
+  const onDelete = (moduleToDelete) => {
+    const updatedList = modules.filter(
+      (item) => item.ModuleID !== moduleToDelete.ModuleID
+    );
+    setModules(updatedList);
+    navigation.goBack();
   };
 
   const gotoAddScreen = () => navigation.navigate('ModuleAddScreen', { onAdd });

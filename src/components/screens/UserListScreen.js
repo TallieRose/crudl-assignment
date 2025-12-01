@@ -8,7 +8,7 @@ import RenderCount from '../UI/RenderCount';
 
 import UserList from '../entity/users/UserList';
 
-// ⭐ initial data from users.txt (converted to JS)
+
 const initialUsers = [
   {
     UserID: 820,
@@ -103,7 +103,7 @@ const initialUsers = [
 const UserListScreen = ({ navigation }) => {
   const [users, setUsers] = useState(initialUsers);
 
-  // ⭐ favourite toggle
+ 
   const handleFavourite = (user) => {
     const isFavourite = !user.UserFavourite;
 
@@ -114,13 +114,12 @@ const UserListScreen = ({ navigation }) => {
     setUsers(updated);
   };
 
-  // ⭐ create
+  
   const onAdd = (user) => {
     const newUser = { ...user, UserFavourite: false };
     setUsers([...users, newUser]);
   };
 
-  // ⭐ update
   const onModify = (updatedUser) => {
     const updated = users.map((u) =>
       u.UserID === updatedUser.UserID ? updatedUser : u
@@ -128,13 +127,13 @@ const UserListScreen = ({ navigation }) => {
     setUsers(updated);
   };
 
-  // ⭐ delete
+ 
   const onDelete = (user) => {
     const filtered = users.filter((u) => u.UserID !== user.UserID);
     setUsers(filtered);
   };
 
-  // navigation
+ 
   const gotoAddScreen = () =>
     navigation.navigate('UserAddScreen', { onAdd });
 

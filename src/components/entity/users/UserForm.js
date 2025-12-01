@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import Form from '../../UI/Form';
 import Icons from '../../UI/Icons';
 
-// ⭐ create a default user when adding
+
 const createDefaultUser = () => ({
   UserID: Math.floor(100000 + Math.random() * 900000),
   UserFirstname: '',

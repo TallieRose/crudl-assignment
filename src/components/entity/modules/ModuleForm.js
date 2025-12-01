@@ -4,32 +4,30 @@ import useLoad from '../../API/useLoad';
 import Icons from '../../UI/Icons';
 import Form from '../../UI/Form';
 
-const defaultModule = {
-  ModuleID: null,
-  ModuleCode: null,
-  ModuleName: null,
-  ModuleLevel: null,
-  ModuleYearID: null,
-  ModuleLeaderID: null,
-  ModuleImageURL: null,
-};
-
 const ModuleForm = ({ originalModule, onSubmit, onCancel }) => {
-  defaultModule.ModuleID = Math.floor(100000 + Math.random() * 900000);
-  defaultModule.ModuleImageURL = 'https://images.freeimages.com/images/small-previews/cf5/cellphone-1313194.jpg';
+
+  const emptyModule = {
+    ModuleID: Math.floor(100000 + Math.random() * 900000),
+    ModuleCode: '',
+    ModuleName: '',
+    ModuleLevel: null,
+    ModuleYearID: null,
+    ModuleLeaderID: null,
+    ModuleImageURL: 'https://images.freeimages.com/images/small-previews/cf5/cellphone-1313194.jpg',
+  };
 
   const yearsEndpoint = 'http://softwarehub.uk/unibase/api/years';
   const staffEndpoint = 'http://softwarehub.uk/unibase/api/users/staff';
 
   const levels = [
-    { value: 3, label: '3 (Foundation)' },
-    { value: 4, label: '4 (First Year)' },
-    { value: 5, label: '5 (Second Year)' },
-    { value: 6, label: '6 (Final Year)' },
-    { value: 7, label: '7 (Masters)' },
+    { key: '3', value: 3, label: '3 (Foundation)' },
+    { key: '4', value: 4, label: '4 (First Year)' },
+    { key: '5', value: 5, label: '5 (Second Year)' },
+    { key: '6', value: 6, label: '6 (Final Year)' },
+    { key: '7', value: 7, label: '7 (Masters)' },
   ];
 
-  const [module, setModule] = useState(originalModule || defaultModule);
+  const [module, setModule] = useState(originalModule || emptyModule);
   const [years, , isYearsLoading] = useLoad(yearsEndpoint);
   const [leaders, , isLeadersLoading] = useLoad(staffEndpoint);
 
@@ -40,13 +38,15 @@ const ModuleForm = ({ originalModule, onSubmit, onCancel }) => {
   const submitIcon = originalModule ? <Icons.Edit /> : <Icons.Add />;
 
   const cohorts = years.map((year) => ({
+    key: year.YearID.toString(),
     value: year.YearID,
     label: year.YearName,
   }));
 
   const staff = leaders.map((leader) => ({
+    key: leader.UserID.toString(),
     value: leader.UserID,
-    label: `${leader.UserFirstname} ${leader.UserLastname}`,   // **fixed spelling**
+    label: `${leader.UserFirstname} ${leader.UserLastname}`,
   }));
 
   return (
