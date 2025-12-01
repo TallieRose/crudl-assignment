@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native';
-import Selector from './Selector';
+import { StyleSheet, Text, View } from "react-native";
+import Selector from "./Selector";
+import theme from "../../theme/theme";
 
 export const Button = ({ label, icon, onClick, styleButton, styleLabel }) => {
   return (
@@ -8,7 +9,7 @@ export const Button = ({ label, icon, onClick, styleButton, styleLabel }) => {
       style={[styles.button, styleButton]}
       pressedStyle={styles.pressedButton}
     >
-      {icon ? icon : null}
+      {icon}
       <Text style={[styles.label, styleLabel]}>{label}</Text>
     </Selector>
   );
@@ -20,27 +21,31 @@ export const ButtonTray = ({ children }) => {
 
 const styles = StyleSheet.create({
   buttonTray: {
-    flexDirection: 'row',
-    gap: 15,
+    flexDirection: "row",
+    gap: theme.spacing.md,
   },
+
   button: {
     minHeight: 50,
     borderWidth: 1,
-    borderRadius: 7,
-    borderColor: 'grey',
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 3,
+    borderRadius: theme.borderRadius.medium,
+    borderColor: theme.colors.buttonBorder,
+    backgroundColor: theme.colors.button,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: theme.spacing.sm,
+    flexDirection: "row",
+    gap: theme.spacing.xs,
     flex: 1,
-    flexDirection: 'row',
-    gap: 5,
   },
+
   label: {
-    fontSize: 16,
+    fontSize: theme.fonts.regular,
+    color: theme.colors.textPrimary,
   },
+
   pressedButton: {
-    backgroundColor: 'azure',
-    elevation: 5,
+    backgroundColor: theme.colors.pressed,
+    elevation: 3,
   },
 });

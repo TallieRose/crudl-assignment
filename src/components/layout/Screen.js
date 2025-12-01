@@ -1,20 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from "react-native";
+import theme from "../../theme/theme";
 
-const Screen = ({children}) => {
-  return (
-    <View style={styles.screen}>
-      {children}
-      <StatusBar style='light' />
-    </View>
-  );
-}
+const Screen = ({ children }) => {
+  return <View style={styles.screen}>{children}</View>;
+};
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 15,
     flex: 1,
-    backgroundColor: '#fff',
+    padding: theme.spacing.md,
+    backgroundColor: theme.colors.background,
   },
 });
 
